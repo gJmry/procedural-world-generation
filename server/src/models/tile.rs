@@ -1,9 +1,8 @@
 pub struct Tile {
-    height: f32,
-    width: f32,
-    biome: BiomeType,
+    pub height: f32,
+    pub width: f32,
+    pub biome: BiomeType,
 }
-
 
 pub enum BiomeType {
     Ocean,

@@ -1,10 +1,11 @@
-use rand::Rng;
-use crate::models::tile::{Tile, BiomeType};
+use crate::models::tile::{BiomeType, Tile};
 use noise::{NoiseFn, Perlin};
+use rand::Rng;
 
 pub fn generate_world(width: u16, height: u16) -> Vec<Vec<Tile>>{
     let mut world = Vec::new();
-    let perlin = Perlin::new(42);
+    let mut rng = rand::rng();
+    let perlin = Perlin::new(rng.random::<u32>());
     let scale = 0.1;
 
 
@@ -13,8 +14,8 @@ pub fn generate_world(width: u16, height: u16) -> Vec<Vec<Tile>>{
         for y in 0..width {
             let x_coord = scale * (x as f64);
             let y_coord = scale * (y as f64);
-            let height = (perlin.get([x_coord, y_coord, 0.0]) + 1.0) / 2.0;
-            let moisture = (perlin.get([x_coord, y_coord, 1.0]) + 1.0) / 2.0;
+            let height = (perlin.get([x_coord, y_coord, 0.0])) + 1.0 / 2.0;
+            let moisture = (perlin.get([x_coord, y_coord, 0.0])) + 1.0 / 2.0;
             let biome: BiomeType = determine_biome(height, moisture);
             row.push(Tile {
                 height,

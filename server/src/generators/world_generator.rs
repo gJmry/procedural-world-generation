@@ -28,7 +28,7 @@ pub fn generate_world(width: u16, height: u16) -> Vec<Vec<Tile>>{
     world
 }
 
-fn determine_biome(height: f64, moisture: f64) -> BiomeType {
+pub fn determine_biome(height: f64, moisture: f64) -> BiomeType {
     if height < 0.2 {
         BiomeType::Ocean
     } else if height < 0.3 {
@@ -44,4 +44,8 @@ fn determine_biome(height: f64, moisture: f64) -> BiomeType {
             BiomeType::Mountain
         }
     }
+}
+
+pub fn serialize_to_json(world: Vec<Vec<Tile>>) -> serde_json::Value {
+    serde_json::to_value(&world).unwrap()
 }

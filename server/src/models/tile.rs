@@ -1,5 +1,7 @@
 use std::fmt;
+use serde::Serialize;
 
+#[derive(Serialize)]
 pub struct Tile {
     pub height: f64,
     pub moisture: f64,
@@ -13,7 +15,7 @@ impl fmt::Display for Tile {
     }
 }
 
-
+#[derive(Serialize)]
 pub enum BiomeType {
     Ocean,
     Beach,

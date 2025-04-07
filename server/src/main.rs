@@ -4,5 +4,5 @@ mod api;
 
 #[tokio::main]
 async fn main() {
-    api::main::main().await;
+    let _ = api::main::main().await;
 }

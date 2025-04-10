@@ -1,16 +1,18 @@
 <script>
-    import { T, useTask } from '@threlte/core'
-    import { interactivity } from '@threlte/extras'
-    import { Spring } from 'svelte/motion'
+    import {T} from '@threlte/core'
+    import {interactivity} from '@threlte/extras'
+    import Tile from "../../components/3D/Tile.svelte";
 
     interactivity()
 
-    const scale = new Spring(1)
+    const spacing = 1.5;
 
-    let rotation = 0
-    useTask((delta) => {
-        rotation += delta
-    })
+    const tiles = [
+        {"color": "green"},
+        {"color": "blue"},
+        {"color": "red"},
+        {"color": "hotpink"},
+    ]
 </script>
 
 <T.PerspectiveCamera
@@ -26,26 +28,21 @@
         castShadow
 />
 
-<T.Mesh
-        rotation.y={rotation}
-        position.y={1}
-        scale={scale.current}
-        onpointerenter={() => {
-    scale.target = 1.5
-  }}
-        onpointerleave={() => {
-    scale.target = 1
-  }}
-        castShadow
->
-    <T.BoxGeometry args={[1, 2, 1]} />
-    <T.MeshStandardMaterial color="hotpink" />
-</T.Mesh>
+{#each tiles as tile, index}
+    <Tile
+            color={tile.color}
+            position={[
+            spacing * (index % 2),
+            1,
+            spacing * Math.floor(index / 2)
+        ]}
+    />
+{/each}
 
 <T.Mesh
         rotation.x={-Math.PI / 2}
         receiveShadow
 >
-    <T.CircleGeometry args={[4, 40]} />
-    <T.MeshStandardMaterial color="white" />
+    <T.CircleGeometry args={[4, 40]}/>
+    <T.MeshStandardMaterial color="white"/>
 </T.Mesh>
